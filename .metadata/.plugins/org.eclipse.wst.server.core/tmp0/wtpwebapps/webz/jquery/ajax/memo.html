@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memo.html</title>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="../../resources/script/jquery-3.6.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+	$(function() {
+		$('#postBtn').click(function() {
+			$.post('test2.jsp', //요청 url
+					{"memo" : $('#memo').val(),
+				"id" : $('#id').val()}, //전송 데이터 - 메모, 아이디
+					function(result) { //callback 함수
+					$('#memo').val('').focus();
+					$('#id').val();
+					
+					$('ul').append('<li>' + result);//ul에 li로 추가
+					
+					
+					$('li').on('click', function(){
+						
+						showConfirm($(this));
+						
+// 						var chk = confirm( $(this).text() + '를 삭제하시겠습니까?');
+// 						if(chk == true) {
+// 							$(this).remove();	//동적 생성 객체 삭제 불가
+// 						};
+
+						
+					});	
+					
+					
+			});
+
+		});
+		
+	function showConfirm(li) {
+		$('p').css('visibility', 'visible');
+		$( "#dialog-confirm" ).dialog({
+		      resizable: false,
+		      height: "auto",
+		      width: 400,
+		      modal: true,
+		      buttons: {
+		        "삭제": function() {
+		        	li.remove();
+		          $( this ).dialog( "close" );
+		        },
+		        "취소": function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+	}	
+		
+
+	});//$END//
+	
+	
+</script>
+
+
+</head>
+<body>
+	<h3>AJAX memo</h3>
+	<form>
+	<input type="text" size="15" name="memo" id="memo" placeholder="MEMO">
+	<input type="text" size="8" name="id" id="id" placeholder="id">
+	<input type="button" id="postBtn" value="등록">
+	</form>
+	<hr>
+	<div id="result"><ul></ul></div>
+
+<div id="dialog-confirm" title="Remove memo?" style="display: none; ">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+  	해당 목록을 삭제하시겠습니까?</p></div>
+
+	
+</body>
+</html>

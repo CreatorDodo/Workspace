@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/accessDenied.jsp</title>
+</head>
+<body>
+	<h3>접근이 거부되었습니다.</h3>
+	<p>Spring message : </p>
+	<img src="/resources/img/denied.png" width="300" height="300">
+	<br>			<!-- 전달된 msg 속성을 화면에 출력 -->
+	Customized message : ${msg }
+	
+</body>
+</html>

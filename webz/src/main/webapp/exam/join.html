@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet"
+	  href="style/style.css">
+</head>
+<body>
+	<h1>MEMBER only SYSTEM JOIN</h1>
+	<form action="login.html" method="post" enctype="multipart/form-data"
+		novalidate>
+
+		<!-- file을 첨부했을 경우 method와 enctype 지정 필요 -->
+		<fieldset>
+			<legend>[ 필수 입력 항목 ]</legend>
+			<div>
+				<label>아이디　&nbsp;　　　<input type="text" name="id" required autofocus>
+
+				</label>
+			</div>
+			<div>
+				<label>비밀번호&nbsp;　　　<input type="password" name="pw" required>
+				</label>
+			</div>
+			<div>
+				<label>비밀번호 확인&nbsp;&nbsp; <input type="password" name="pw2"
+					required>
+				</label>
+			</div>
+			<div>
+				<label>이름　　　　　 <input type="password" name="name" required>
+				</label>
+
+			</div>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>[ 선택 항목]</legend>
+			<div>
+				<label>이메일 　　　　<input type="email"></label>
+			</div>
+			<div>
+				<label>사진　　　　　 </label> <input type="file" value="photo" accept="image/*">
+			</div>
+			<div>
+				<label>성별 　　&nbsp;　　</label> <label for="genderM"> <input type="radio"
+					name="gender" id="genderM" checked value="M"> 남자
+				</label> <label for="genderF"> <input type="radio" name="gender"
+					id="genderF" value="F"> 여자
+				</label>
+
+			</div>
+
+
+		</fieldset>
+		<hr>
+
+		<input type="reset" value="다시쓰기"> <input type="button"
+			value="이전으로"> <input type="submit" value="가입">
+
+	</form>
+</body>
+</html>

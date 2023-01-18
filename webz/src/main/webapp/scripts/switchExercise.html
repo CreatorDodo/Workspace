@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>switchExercise.html</title>
+</head>
+<body>
+	<h3>컴퓨터와 가위 바위 보</h3>
+	<!-- 1. 가위, 바위, 보 이미지를 화면에 표시
+		 2. 사용자가 이미지 중 하나를 클릭하면
+		 3. 컴퓨터가 랜덤하게 선택한 이미지와 비교하여 표시하고
+		 4. 가위 바위 보 결과를 화면에 표시
+		 
+	 -->
+	 <img src="../imgs/가위.png" width="100px" height="100px">
+	 <img src="../imgs/바위.png"  width="100px" height="100px">
+	 <img src="../imgs/보.png"  width="100px" height="100px">
+	<script>
+	var comNum = Math.floor(Math.random() * 3);
+	var com    = comNum == 0 ? '가위' : (com == 1 ? '바위' : '보');
+	var man    = prompt('가위 바위 보 중 하나를 입력해주세요.');
+	var manNum;
+	
+	console.log(com);
+	console.log(Math.floor(com));	
+	
+	switch(man) {
+	case '가위' : manNum = 0; break; 
+	case '바위' : manNum = 1; break; 
+	case '보'   : manNum = 2; break;
+	default    : manNum = -1;
+	}
+	
+	if(manNum != -1) {
+		document.write('컴퓨터:' + com + ' vs.     사람:' + man );
+	}else {
+		document.write('잘못된 값이 입력되었습니다. 게임 종료');
+	}
+
+
+	
+	
+	
+	
+	/* public void gawiBawiBo() throws IOException {
+		do {
+			System.out.println();
+			System.out.println(">> 컴퓨터와 가위 바위 보!!!!!!!!!!");
+			System.out.println(">> 가위(0), 바위(1), 보(2) 중 하나를 선택하세요.");
+			System.out.print(">> 선택 : ");
+			input = System.in.read() -48;
+			System.in.skip(2);
+			if(input < 0 || input > 2) { //0~2가 입력되지 않은 경우
+				System.out.println(">> 0 ~ 2 중에 하나를 선택해주세요.");
+				yesNo = 'y';
+				continue;
+						
+			int com = (int)(Math.random() * 3); //컴퓨터의 값
+			
+			switch (input) {	//게임 판정
+			case 1 : case -2 : result = "YOU WIN!"; break;
+				//사람이 이긴 경우
+	
+			case 0 : result = "DRAW!~~~"; break;
+			//비긴 경우
+	
+
+			default: result = "YOU LOSE!";
+			//사람이 진 경우	
+			break;
+			}
+			
+			
+			//게임 결과 출력
+			System.out.println("----------------------------");
+			System.out.print("   you : " + (input==0 ? "가위" : input==1 ? "바위" : "보"));
+			System.out.print("\t vs.\tcom : " + (com==0 ? "가위" : com==1 ? "바위" : "보"));
+			System.out.println("\n\n              " + result);
+			System.out.println("----------------------------");
+			System.out.println(">> 계속하시려면 y, 그만하려면 아무거나 입력해주세요. : ");
+			yesNo = (char) System.in.read();
+			System.in.skip(2);
+		} while(yesNo == 'y' || yesNo == 'Y');
+			System.out.println();
+			menu(); //y가 아닌 경우 메인 메뉴 출력 
+	}*/
+	</script>
+	
+</body>
+</html>

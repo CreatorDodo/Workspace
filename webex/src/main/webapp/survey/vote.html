@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>vote.html</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="resources/assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="../resources/css/styles.css" rel="stylesheet" />
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="jquery-3.6.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+
+<style>
+#wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+	padding: 10px;
+}
+
+fieldset {
+	border-radius: 10px;
+	margin-bottom: 10px;
+	border: 1px solid gray;
+}
+
+/* .btn { */
+/* 	border: 1px solid gray; */
+/* 	width: 42%; */
+/* 	border-radius: 10px; */
+/* 	padding: 10px; */
+/* 	float: left; */
+/* 	text-align: center; */
+/* } */
+
+#send {
+	margin-left: 20px;
+}
+
+#result {
+	height: 150px;
+}
+
+.bgColor {
+	background: #ccffee;
+}
+
+li {
+	padding: 5px;
+}
+
+.style1 {
+	background: #ccffee;
+}
+
+.style2 {
+	background: pink;
+}
+
+
+</style>
+
+
+
+<script>
+
+$(function(){
+	
+	var places = ['다리', '경복궁', '강', '풀밭', '벚꽃', '서울', '벚꽃', '다리', '등불축제', '제주도', '울릉도'];
+	
+
+	$.each(places, function(i, place) {	//라디오와 레이블 표시
+		var tag = "<input type= 'radio' id='item" + i + "'>" +
+		"<label for='item" + i + "'>" + place + "</lable><br>";
+		$('fieldset:eq(0)').append(tag);
+	});
+
+	
+$('#revote').css({ width: '200px', height: '30px', border : '1px solid gray',
+					 borderRadius : '8px', textAlign : 'center', paddingTop : '10px', marginLeft : 'auto' , marginRight : 'auto'});
+$('#send').css({ width: '200px', height: '30px', border : '1px solid gray',
+					borderRadius : '8px',  textAlign : 'center', paddingTop : '10px', marginLeft : 'auto' , marginRight : 'auto'});
+
+$('fieldset').css({ width: '385px', border : '1px solid gray',
+					borderRadius : '8px', marginBottom : '10px', marginLeft : 'auto' , marginRight : 'auto'});
+
+$(':radio').on('click', function(){
+	$(this).attr('disabled', true);
+	$('#top3').addClass('style1');	//내 마음대로 TOP 3의 배경 스타일 추가
+	var item = $(this).next().text();
+	$('ol').append('<li>' + $(this).next().text());	//선택값을 가져와서 ol의 li로 추가
+	
+	if($('ol').children().length == 3){//3개를 선택했으면
+		$(':radio').attr('disabled', true);	//모든 라디오 선택 불가 처리
+	}
+	
+	//선택 아이템을 서버로 전송하기 위해 hidden 태그 생성하고 폼에 추가
+	$('#frm').append("<input type='hidden' name='voted" +
+			$('ol').children().length + "' value='" + item + "'>");
+						
+	
+	});
+	
+
+
+$('#revote').hover(function(){
+	$(this).toggleClass('style2');
+});
+
+$('#revote').click(function() {
+	location.reload();
+	});
+
+
+
+$('#send').click(function() {
+	 if($('ol').children().length < 1){//0개인 경우		- '선택 항목이 없습니다.'
+		 showConfirm1('선택 항목이 없습니다.');
+	} else if($('ol').children().length < 3){//3개 미만인 경우 - '3개를 선택해주세요.'
+		showConfirm1('3개를 선택해주세요.');
+	} else{//그 외의 경우		- '서버로 폼데이터 전송'
+		$('#frm').submit();
+	}
+	
+	
+	
+	
+	});
+
+function showConfirm1(msg) {
+	$('#msg').text(msg);
+	$( "#dialog-confirm1" ).dialog({
+	      resizable: false,
+	      height: "auto",
+	      width: 400,
+	      modal: true,
+	      buttons: {
+	        "확인": function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	    });
+}	
+
+
+
+
+});
+
+
+</script>
+
+</head>
+<body>
+	<!-- Navigation-->
+	<nav
+		class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
+		id="mainNav">
+		<div class="container">
+			<a class="navbar-brand" href="#page-top">THE SURVEY</a>
+			<button
+				class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
+				type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				Menu <i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="survey/vote.html">설문조사</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+
+
+
+ <!-- Portfolio Section-->
+        <section class="page-section portfolio" id="portfolio">
+            <div class="container">
+                <!-- Portfolio Section Heading-->
+                <br><br>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Let's Vote!</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+            </div>
+            
+            <form action="result.html" method="get" id="frm"
+		enctype="multipart/form-data">
+
+		<fieldset>
+			<legend>10 beautiful places to visit in korea</legend>
+
+
+		</fieldset>
+
+		<fieldset id="top3">
+			<legend>내 마음대로 TOP3</legend>
+			<ol>
+
+			</ol>
+		</fieldset>
+
+		<div id="revote">ReVote</div>
+		<div id="send">서버로 전송</div>
+	</form>
+	<!-- 	htmls/result.html 로 데이터 전송 -->
+
+
+
+
+	<!-- 메시지 팝업 다이얼로그 -->
+	<div id="dialog-confirm1" title="내 마음대로 TOP 3" style="display: none;">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 12px 12px 20px 0;"></span> <span
+				id="msg"></span>
+		</p>
+		<p>10 beautiful places to visit in korea</p>
+	</div>
+
+
+	<!-- END 메시지 팝업 다이얼로그 -->
+        </section>
+
+
+
+	
+
+	<!-- Footer-->
+	<footer class="footer text-center">
+		<div class="container">
+			<div class="row">
+				<!-- Footer Location-->
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">Location</h4>
+					<p class="lead mb-0">
+						2215 John Daniel Drive <br /> Clark, MO 65243
+					</p>
+				</div>
+				<!-- Footer Social Icons-->
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">Around the Web</h4>
+					<a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+						class="fab fa-fw fa-facebook-f"></i></a> <a
+						class="btn btn-outline-light btn-social mx-1" href="#!"><i
+						class="fab fa-fw fa-twitter"></i></a> <a
+						class="btn btn-outline-light btn-social mx-1" href="#!"><i
+						class="fab fa-fw fa-linkedin-in"></i></a> <a
+						class="btn btn-outline-light btn-social mx-1" href="#!"><i
+						class="fab fa-fw fa-dribbble"></i></a>
+				</div>
+				<!-- Footer About Text-->
+				<div class="col-lg-4">
+					<h4 class="text-uppercase mb-4">About Freelancer</h4>
+					<p class="lead mb-0">
+						Freelance is a free to use, MIT licensed Bootstrap theme created
+						by <a href="http://startbootstrap.com">Start Bootstrap</a> .
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="../resources/js/scripts.js"></script>
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+	<!-- Copyright Section-->
+	<div class="copyright py-4 text-center text-white">
+		<div class="container">
+			<small>Copyright &copy; Your Website 2022</small>
+		</div>
+	</div>
+</body>
+</html>

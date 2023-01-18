@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>media.html</title>
+</head>
+<body>
+	<h3>audio tag</h3>
+	<audio src="../resources/y2mate.com - Charlie Puth  Thats Hilarious.mp3" controls="controls">
+		오디오 요소를 지원하지 않는 브라우저입니다.
+	</audio>
+</body>
+</html>

@@ -1,0 +1,27 @@
+package edu.springz.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
+public class SecurityController {
+	
+	@GetMapping("/sample/all")
+	public void all() {
+		log.info("/sample/all.................");
+	}
+	
+	@GetMapping("/sample/member")
+	public void member() {
+		log.info("/sample/member.................");
+	}
+	
+	@GetMapping("/sample/admin")
+	public void admin() {
+		log.info("/sample/admin.................");
+	}
+
+}

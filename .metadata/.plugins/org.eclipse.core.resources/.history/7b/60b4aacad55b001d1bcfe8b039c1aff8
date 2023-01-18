@@ -1,0 +1,297 @@
+package exam.main;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+import exam.dao.MemberDAO;
+import exam.vo.MemberVO;
+import exam.vo.SurveyDAO;
+import exam.vo.SurveyVO;
+
+public class SurveyMain {
+	private Scanner scan;
+	private int input;
+	private SurveyDAO sdao = new SurveyDAO();
+	
+	
+	
+	
+	//설문 메뉴
+	public SurveyMain(Scanner scan) {
+		this.scan = scan;
+		
+		
+	}
+
+
+
+
+
+
+
+	//설문 관리자 메뉴
+	public void adminmenu() throws IOException {	
+		//1.설문 목록 2.설문 등록 3.메인 메뉴가기 4.종료
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 관리자 메뉴 --------");
+		System.out.println("1.설문 목록	\t2.설문 등록 \t3.메인 메뉴 \t4.종료");
+		System.out.print(">> 선택 : ");
+		input = scan.nextInt();
+		
+		if(input == 1) {
+			//1.1설문 하나 보기
+			//1.1.1설문 수정
+			//1.1.2설문 삭제
+			surveyList();
+			surveyView();
+		}else if(input == 2){
+			surveyAdd();
+		}else if(input == 3){
+			new MemberMain().adminMenu();
+		}
+		else if(input == 4){
+			System.out.println(">> 시스템을 종료합니다");
+			System.exit(0);
+		}
+		else {
+			System.out.println(">> 1 ~ 3 중에 하나를 선택해주세요.");
+			System.out.println();
+		}
+	}
+
+		
+		
+	
+	
+
+	//설문 회원 메뉴
+	public void memberMenu() throws IOException {
+		//1.설문 목록 1.1.설문 참여 2.내 설문 보기 3. 메인 메뉴가기 4.종료
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 회원 메뉴 --------");
+		System.out.println("     1.설문 목록");
+		System.out.println("     2.내 설문 보기");
+		System.out.println("     3.설문 참여");
+		System.out.println("     4.메인 메뉴");
+		System.out.println("     5.종료");
+		System.out.print(">> 선택 : ");
+		input = scan.nextInt();
+		
+		if(input == 1) {
+			surveyList();
+
+		}else if(input == 2){
+			surveyMyList();
+		}else if(input == 3){
+			surveyAttend();
+		}
+		else if(input == 4){
+			new MemberMain().memberMenu();
+		}
+		else if(input == 5){
+			System.out.println(">> 시스템을 종료합니다");
+			System.exit(0);
+		}
+		else {
+			System.out.println(">> 1 ~ 3 중에 하나를 선택해주세요.");
+			System.out.println();
+		}
+	
+	}
+	
+	public void surveyMyList() throws IOException {
+	
+	}
+	
+	//설문 목록 출력
+	public void surveyList() throws IOException {
+		//설문번호, 설문제목, 참여자 수, 진행기간
+		//							2022.10.31 ~ 진행 중
+		//							2022.10.24 ~ 2022.10.30
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 목록 --------");
+		
+		SurveyVO svo = new SurveyVO();
+		 sdao.selectAllList();
+		System.out.println("설문번호 : " + svo.getSurveyNo());
+		System.out.println("설문제목 : " + svo.getTitle());
+//		System.out.println("참여자 수 : " + (svo.getOneCnt() + svo.getTwoCnt()));
+		System.out.println("진행기간 : " + svo.getStartDate() + "~" + svo.getEndDate());
+		System.out.println();
+		
+		System.out.println("1.설문 수정	\t2.설문 삭제 \t3. 메인 메뉴 \\t4. 종료");
+		System.out.print(">> 선택 : ");
+		input = scan.nextInt();
+		
+		if(input == 1) {
+			surveyModify();
+		}else if(input == 2){
+			surveyRemove();
+		}
+		else if(input == 3){
+			new MemberMain().adminMenu();
+		}
+		else if(input == 4){
+			System.out.println(">> 시스템을 종료합니다");
+			System.exit(0);
+		}
+		else {
+			System.out.println(">> 1 ~ 4 중에 하나를 선택해주세요.");
+			System.out.println();
+		}
+		
+	}
+	
+	//설문 하나 보기
+	public void surveyView() {
+//			MemberVO mvo = sdao.surveyList();
+//			System.out.println("아이디 : " + mvo.getId());
+//			System.out.println("이름 : " + mvo.getName());
+//			System.out.println("이메일 : " + mvo.getEmail());
+//			System.out.println("사진 : " + mvo.getPhoto());
+//			System.out.println("성별 : " + mvo.getGender());
+//			System.out.println();
+//			memberMenu();
+
+		surveyModify();
+		surveyRemove();
+		
+	}
+	
+	//설문 등록
+	public void surveyAdd() throws IOException {
+		SurveyVO svo = new SurveyVO();
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 등록 --------");
+		scan.nextLine();
+		System.out.println();
+		System.out.print("   설문 제목 : ");
+		String title = scan.nextLine();	svo.setTitle(title);
+		
+		
+		System.out.print("   선택 항목1 : ");
+		String one = scan.nextLine();	svo.setOne(one);
+		
+		System.out.print("   선택 항목2 : ");
+		String two = scan.nextLine();	svo.setTwo(two);
+		
+		System.out.print("   설문시작일 : ");
+		String startDate = scan.nextLine();	svo.setStartDate(startDate);
+
+
+		String endDate = startDate;	svo.setEndDate(endDate);
+		
+		
+		boolean result = sdao.insert(svo);
+		if(result == true) {
+			System.out.println("설문 등록이 완료되었습니다.");
+			System.out.println();
+			adminmenu();
+		}
+
+	}
+		
+	
+	
+	//설문 수정
+	public void surveyModify() {
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 수정 --------");
+//System.out.println(">>비밀번호를 변경합니다.");
+//		
+//		System.out.print("  기존 비밀번호 : ");
+//		String pwOld = scan.nextLine();
+//		
+//		System.out.print("  신규 비밀번호 : ");
+//		String pwNew = scan.nextLine();
+//		
+//		//기존 비밀번호가 로그인 시의 비밀번호와 일치하는 경우 변경
+//		if(pwOld.equals(pw)) {
+//			boolean result = mdao.changePw(id, pwNew);
+//			if(result == true) {
+//
+//				System.out.println(">>비밀번호가 변경되었습니다.");
+//			}
+//		}else {
+//			System.out.println(">> 비밀번호가 일치하지 않습니다.");
+//		}
+//		System.out.println();
+//		memberMenu();
+//		
+	}
+	
+	//설문 삭제
+	public void surveyRemove() {
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 삭제 --------");
+//		System.out.println(">> 탈퇴하시려면 y를 입력해주세요. : ");
+//		String yesNo = scan.nextLine();
+//		
+//			if(yesNo.equalsIgnoreCase("y")) {
+//				boolean result = mdao.delete(id);
+//				if(result == true) {
+//					System.out.println(">>회원탈퇴가 완료되었습니다.");
+//					logout();
+//				}
+//			}else {
+//				System.out.println(">> 회원탈퇴가 취소되었습니다.");
+//			}
+//			System.out.println();
+//			memberMenu();
+	}
+	
+	//설문 참여
+	public void surveyAttend() {
+//		MemberVO mvo = new MemberVO();
+		System.out.println();
+		System.out.println();
+		System.out.println("=======================================================");
+		System.out.println(">> 설문 참여 --------");
+//		System.out.print("   아이디 : ");
+//		String id = scan.nextLine();	mvo.setId(id);
+//	
+//		
+//		System.out.print("   비밀번호 : ");
+//		String pw = scan.nextLine();	mvo.setPw(pw);
+//
+//		System.out.print("   이름 : ");
+//		String name = scan.nextLine();	mvo.setName(name);
+//		
+//		System.out.print("   이메일 : ");
+//		String email = scan.nextLine();	mvo.setEmail(email);
+//		
+//		System.out.print("   사진 : ");
+//		String photo = scan.nextLine();	mvo.setPhoto(photo);
+//
+//		System.out.print("   성별 : ");
+//		String gender = scan.nextLine();	mvo.setGender(gender);
+//
+//		
+//		boolean result = mdao.insertMember(mvo);
+//		if(result == true) {//결과를 넘겨받아 회원가입에 성공한 경우
+//			System.out.println("회원 가입이 완료되었습니다.");
+//			System.out.println("로그인 후 이용해주세요.");
+//			System.out.println();
+//			menu();
+		
+	}
+
+
+
+
+
+
+
+}

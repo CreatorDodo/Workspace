@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.springz.mapper.ReplyMapper">
+
+	<!-- 쿼리 보관 -->
+	<sql id="criteria">
+		 <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+    			   	   <foreach collection="typeArr" item="type">
+    			   	   	   <trim prefix="OR">
+								<choose>
+									<when test="type == 'T'.toString()">
+										title LIKE '%'||#{keyword}||'%'
+									</when>
+									<when test="type == 'C'.toString()">
+										content LIKE '%'||#{keyword}||'%'
+									</when>
+									<when test="type == 'W'.toString()">
+										writer LIKE '%'||#{keyword}||'%'
+									</when>
+								</choose>    			   	   	   
+    			   	   	   </trim>
+    			   	   </foreach>
+    			   </trim>
+	</sql>
+
+		<update id="updateReply">
+		UPDATE tbl_reply 
+		SET reply=#{reply}, UPDATE_DATE=SYSDATE 
+		WHERE rno = #{rno} 
+	</update>
+
+	<delete id="deleteReply">
+		DELETE FROM tbl_reply where rno = #{rno}
+	</delete>
+
+<!-- 	<insert id="insertBoardSelectKey"> -->
+		<!-- bno를 사전에 증가시켜서 저장해두기 -->
+<!-- 		<selectKey keyProperty="bno" order="BEFORE" resultType="int"> -->
+<!-- 			SELECT seq_tbl_board.nextval FROM dual -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT INTO tbl_board(bno, title, content, writer) -->
+<!-- 		VALUES(#{bno}, -->
+<!-- 		#{title}, #{content}, #{writer}) -->
+<!-- 	</insert> -->
+
+	<insert id="insertReply">
+		INSERT INTO tbl_reply(rno, bno, reply, replyer)
+		VALUES(seq_tbl_reply.nextval, #{bno}, #{reply}, #{replyer})
+	</insert>
+	
+		<select id="selectReplyAllPaging"
+		resultType="edu.springz.domain.ReplyVO">
+		<![CDATA[
+     
+    	SELECT rno, bno, reply, replyer, regDate, updateDate
+    	 FROM ( SELECT /*+INDEX(tbl_reply idx_tbl_reply) */
+    	 rownum rn, rno, bno, reply, replyer, reg_date as regDate, update_date as updateDate FROM tbl_reply
+    	 WHERE  bno = #{bno}
+    	 AND	rno > 0 
+    	 AND	rownum <= #{cri.amount} * #{cri.pageNum} )
+     WHERE rn > #{cri.amount} * (#{cri.pageNum} - 1)
+    ]]>
+    	 
+    	 <!-- 보관해 둔 쿼리 사용 -->
+<!--     	 <include refid="criteria"></include> -->
+    	
+    	 
+<!--     	 ORDER BY rno ASC -->
+    	
+    	
+    	
+    	
+	</select>
+	
+	<select id="totalReply" resultType="int">
+
+		SELECT COUNT(rno) FROM tbl_reply WHERE bno = #{bno}
+			<!-- 보관해 둔 쿼리 사용 -->
+<!--     	 <include refid="criteria"></include> -->
+		 
+	</select>
+	
+	
+	
+	<select id="selectReplyAll"
+		resultType="edu.springz.domain.ReplyVO">
+  <![CDATA[
+    SELECT rno, bno, reply, replyer, reg_date as regDate, update_date as updateDate FROM tbl_reply WHERE rno > 0 ORDER BY rno DESC
+    ]]>
+	</select>
+
+
+	<select id="selectReply" resultType="edu.springz.domain.ReplyVO">
+		SELECT rno, bno, reply, replyer, reg_date as regDate, update_date as updateDate FROM tbl_reply
+		WHERE rno = #{rno}
+	</select>
+
+</mapper>

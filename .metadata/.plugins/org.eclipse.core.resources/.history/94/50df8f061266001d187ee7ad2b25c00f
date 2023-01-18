@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>operator.html</title>
+</head>
+<body>
+	<h3>자바스크립트 연산자</h3>
+	<script>
+	var num = 3;
+	var str = '3';
+	
+	console.log(typeof num);
+	console.log(typeof str);
+	console.log(num == str);	//값 비교
+	console.log(num === str);	//값과 타입 비교
+	console.log(num != str);
+	console.log(num !== str);
+	console.log('------------');
+	
+	num = 4;
+	str = num;
+	console.log(num);
+	console.log(str);
+	console.log('------------');
+	
+	num = '5';
+	str = num;
+	console.log(num);
+	console.log(str);
+	console.log('------------');
+	
+	
+	
+	</script>
+	
+	
+	
+</body>
+</html>

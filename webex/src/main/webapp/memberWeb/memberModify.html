@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>THE SURVEY</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="../survey/jquery-3.6.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+</head>
+<body>
+	<!-- 화면 상단 header -------------------------------------------- -->
+	<nav class="navbar navbar-expand navbar-dark bg-dark">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="../memberWeb/admin.html">Home</a>
+			</div>
+			<div>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="#">회원정보 수정</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- 메인 타이틀 ----------------------------------------- -->
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-4">회원정보 수정</h1>
+		</div>
+	</div>
+
+	<!-- 메인 ------------------------------------------------- -->
+	<div class="container">
+		<form action="memberInfo.html" method="post" id="frm">
+			<div class="form-group row">
+				<label class="col-sm-2">아이디</label>
+				<div class="col-sm-3">
+					<input type="text" value="yjs1111" name="ide" class="form-control"
+						required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">기존 비밀번호</label>
+				<div class="col-sm-3">
+					<input type="password" onkeyup="pwChkr(this)" name="oldPw" id="oldPwe"
+						class="form-control" required>
+				</div>
+				<span style="color: red;" id="oldPwChk"></span>
+
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">신규 비밀번호</label>
+				<div class="col-sm-3">
+					<input type="password" name="newPw" id="newPwe"
+						class="form-control" required>
+				</div>
+				<span style="color: red;" id="newPwChk"></span>
+
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">비밀번호 확인</label>
+				<div class="col-sm-3">
+					<input type="password" onkeyup="pwcChkr(this)" id="newPwChke"
+						class="form-control" required>
+				</div>
+				<span style="color: red;" id="newPwcChk"></span>
+
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">이름</label>
+				<div class="col-sm-3">
+					<input type="text" value="유재석" name="namee" class="form-control"
+						required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">이메일</label>
+				<div class="col-sm-3">
+					<input type="text" value="yjs1111@naver.com" name="email"
+						class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">사진 </label>
+				<div class="col-sm-3">
+					<input type="file" accept="../imgs/2.jpg" name="oneimg"
+						class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">성별</label>
+				<div class="col-sm-3">
+					<label><input type="radio" name="gender" value="man">남성</label>
+				<label><input  type="radio" name="gender" value="woman">여성</label>
+
+				</div>
+			</div>
+
+			<!-- 등록 취소 버튼 -->
+			<div class="text-right">
+				<!-- 				<input type="submit" value="삭제" id="delete" class="btn btn-danger"> -->
+				<a href="index.html"><input type="button"
+					value="탈퇴" class="btn btn-danger removeBtn"></a> <a
+					href="memberInfo.html"><input type="submit" value="수정"
+					class="btn btn-info"></a> <input type="button" value="이전으로"
+					onclick="history.back()" class="btn btn-secondary">
+
+
+			</div>
+
+
+		</form>
+	</div>
+
+	<!-- 메시지 팝업 다이얼로그 -->
+	<div id="dialog-confirm1" title="알림" style="display: none;">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 12px 12px 20px 0;"></span> <span
+				id="msg"></span>
+		</p>
+	</div>
+
+	<!-- 화면 하단 footer --------------------------------------- -->
+	<footer class="container">
+		<hr>
+		<p>&copy; copyright by THE SURVEY</p>
+	</footer>
+
+	<script>
+	
+	function pwChkr(obj) {
+			$.ajax({
+				url : '../common/pwChkProc.jsp',
+				type : 'post',
+				data : 'pw=' + $('#oldPwe').val(),
+				dataType : 'text',
+				success : function(result) {
+					$('#oldPwChk').text(result);
+					if (obj.value == '1111') {
+						$('#frm').attr('onSubmit', 'return true');
+					} else {
+						$('#frm').attr('onSubmit', 'return false');
+					}
+
+				},
+				error : function(error) {
+					console.log(error); //요청 실패 시 처리
+				}
+
+			});
+		
+	}
+	
+	function pwcChkr(obj) {
+		var txt1 = $(obj).val();
+		var txt2 = $('#newPwe').val();
+		if (txt1 != txt2) {
+			$('#newPwcChk').text('비밀번호가 일치하지 않습니다.');
+			$('#frm').attr('onSubmit', 'return false');
+		} else {
+			$('#newPwcChk').text('');
+			$('#frm').attr('onSubmit', 'return true');
+		}
+	}
+	
+	
+		$('#delete').click(function() {
+			showConfirm1('해당 설문을 삭제하시겠습니까?');
+
+		});
+
+		function showConfirm1(msg) {
+			$('#msg').text(msg);
+			$("#dialog-confirm1").dialog({
+				resizable : false,
+				height : "auto",
+				width : 400,
+				modal : true,
+				buttons : {
+					"확인" : function() {
+						$(this).dialog("close");
+						location.href = 'surveyList.html';
+					},
+					"취소" : function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+		}
+	</script>
+
+
+</body>
+</html>

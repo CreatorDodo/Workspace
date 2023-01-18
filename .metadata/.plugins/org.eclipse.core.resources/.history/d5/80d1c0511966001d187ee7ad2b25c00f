@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ifExercise.html</title>
+</head>
+<body>
+<form action="result.html" method="post">
+	<h3>회원약관</h3>
+		<textarea rows="5" 
+					cols="50" readonly name="terms">
+					회원약관
+		</textarea><br><br>
+
+	<label>
+		 <input type="checkbox" value="약관에 동의합니다.">
+		 약관에 동의합니다.
+	</label>
+	<hr>
+<a href="../index.html"><button>취소</button></a>
+<a href="../htmls/result.html"><button>회원가입</button></a>
+</form>
+
+
+</body>
+</html>

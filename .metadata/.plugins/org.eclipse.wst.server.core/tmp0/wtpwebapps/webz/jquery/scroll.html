@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>scroll.html</title>
+<script src="../resources/script/jquery-3.6.1.js"></script>
+
+<script>
+	$(function() {
+
+		var appendLi = function() {
+			//ul에 20개씩 li를 추가(new item1, new item2, ... )
+			for (var i = 0; i <= 20; i++) {
+				$('ul').append('<li> new item ' + $('li').length);
+				//li가 100개가 되면 ul의 밑에
+				//'데이터 출력이 완료되었습니다.'를 출력하고 중단
+				if ($('li').length > 100) {
+					$('ul').after('<div>- 데이터 출력이 완료되었습니다.-</div>');
+					$(window).unbind('scroll');
+					break;
+				}
+			}
+		};
+
+		//ul에 li를 추가하는 함수 호출
+		appendLi();
+
+		$(window).scroll(function() {
+			var scrollHeight = Math.ceil($(window).scrollTop() + $(window).height());
+			
+			console.log(scrollHeight + ' : ' + $(document).height());
+			
+			if (scrollHeight == $(document).height()) {
+				appendLi();
+			}
+		});
+
+	});
+</script>
+
+</head>
+<body>
+
+	<h3>INFINITY scroll</h3>
+	<ul></ul>
+
+
+
+</body>
+</html>

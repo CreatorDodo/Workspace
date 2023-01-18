@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>jspz</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<description>관리자 이메일</description>
+		<param-name>adminEmail</param-name>
+		<param-value>admin@aaa.com</param-value>
+	</context-param>
+	<context-param>
+		<description>파일 업로드 경로</description>
+		<param-name>uploadPath</param-name>
+		<param-value>/upload/</param-value>
+	</context-param>
+
+	<security-role>
+		<role-name>role1</role-name>
+	</security-role>
+	<security-constraint>				<!-- 접근 권한 정의 -->
+		<web-resource-collection>		<!-- 자원 접근 설정 -->
+			<web-resource-name>jspz</web-resource-name>
+<!-- 			<url-pattern>/security/security.jsp</url-pattern>	시큐리티 적용 대상 -->
+				<url-pattern>/security/securityProgramming.jsp</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>	<!-- 허용 권한 정의 -->
+			<role-name>role1</role-name>
+			<role-name>tomcat</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>		<!-- 인증 처리 설정 -->
+		<!-- <auth-method>BASIC</auth-method> -->
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+		<form-login-page>/security/securityLogin.jsp</form-login-page>
+		<form-error-page>/security/securityLoginFailed.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+
+
+
+
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/notFound.jsp</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>java.lang.ArithmeticException</exception-type>
+		<location>/error/divideZero.jsp</location>
+	</error-page>
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>jspz.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>charSet</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+
+
+	<servlet>
+		<servlet-name>config</servlet-name>
+		<jsp-file>/basic/config.jsp</jsp-file>
+		<init-param>
+			<param-name>codeOne</param-name>
+			<param-value>1234</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>config</servlet-name>
+		<url-pattern>/basic/config.jsp</url-pattern>
+	</servlet-mapping>
+
+</web-app>

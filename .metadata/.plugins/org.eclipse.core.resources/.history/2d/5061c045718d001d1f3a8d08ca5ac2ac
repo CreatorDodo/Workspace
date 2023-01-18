@@ -1,0 +1,56 @@
+package edu.springz.security;
+
+import java.io.IOException;
+import java.util.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+
+	@Override
+	public String onAuthenticationSuccess(HttpServletRequest request,
+										HttpServletResponse response,
+										Authentication authentication) throws IOException, ServletException {
+		
+		log.info("로그인 성공");
+		
+		List<String> roleNames = new ArrayList<String>();
+		
+		authentication.getAuthorities()
+		              .forEach(auth -> { roleNames.add(auth.getAuthority()); });
+		
+		log.info("roleNames : " + roleNames);
+		
+		if(roleNames.contains("ROLE_ADMIN")) {
+			response.sendRedirect("/sample/admin");
+//ROLE_ADMIN이면 /sample/admin으로 리다이렉트
+		}else if (roleNames.contains("ROLE_MEMBER")) {
+//ROLE_MEMBER이면 /sample/member으로 리다이렉트
+			response.sendRedirect("/sample/admin");
+		}else {//그 외는 모두 /로 리다이렉트
+			response.sendRedirect("/");
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

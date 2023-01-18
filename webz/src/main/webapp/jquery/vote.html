@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>vote.html</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="../resources/script/jquery-3.6.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+<style>
+#wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+	padding: 10px;
+}
+
+fieldset {
+	border-radius: 10px;
+	margin-bottom: 10px;
+	border: 1px solid gray;
+}
+
+.btn {
+	border: 1px solid gray;
+	width: 42%;
+	border-radius: 10px;
+	padding: 10px;
+	float: left;
+	text-align: center;
+}
+
+#send {
+	margin-left: 20px;
+}
+
+#result {
+	height: 150px;
+}
+
+.bgColor {
+	background: #ccffee;
+}
+
+li {
+	padding: 5px;
+}
+
+.style1 {
+	background: #ccffee;
+}
+
+.style2 {
+	background: pink;
+}
+</style>
+
+<script>
+
+$(function(){
+	
+	var places = ['다리', '경복궁', '강', '풀밭', '벚꽃', '서울', '벚꽃', '다리', '등불축제', '제주도', '울릉도'];
+	
+
+	$.each(places, function(i, place) {	//라디오와 레이블 표시
+		var tag = "<input type= 'radio' id='item" + i + "'>" +
+		"<label for='item" + i + "'>" + place + "</lable><br>";
+		$('fieldset:eq(0)').append(tag);
+	});
+
+	
+$('#revote').css({ width: '200px', height: '30px', border : '1px solid gray',
+					float : 'left', borderRadius : '8px', textAlign : 'center', paddingTop : '10px', marginRight : '10px'});
+$('#send').css({ width: '200px', height: '30px', border : '1px solid gray',
+					float : 'left', borderRadius : '8px',  textAlign : 'center', paddingTop : '10px'});
+
+$('fieldset').css({ width: '385px', border : '1px solid gray',
+					borderRadius : '8px', marginBottom : '10px'});
+
+$(':radio').on('click', function(){
+	$(this).attr('disabled', true);
+	$('#top3').addClass('style1');	//내 마음대로 TOP 3의 배경 스타일 추가
+	var item = $(this).next().text();
+	$('ol').append('<li>' + $(this).next().text());	//선택값을 가져와서 ol의 li로 추가
+	
+	if($('li').length == 3){//3개를 선택했으면
+		$(':radio').attr('disabled', true);	//모든 라디오 선택 불가 처리
+	}
+	
+	//선택 아이템을 서버로 전송하기 위해 hidden 태그 생성하고 폼에 추가
+	$('#frm').append("<input type='hidden' name='voted" +
+						$('li').length + "' value='" + item + "'>");
+						
+	
+	});
+	
+
+
+// $('label').click(function(){
+// 	$('#top3').addClass('style1');
+// 	$('ol').css({type : '1'});
+// 	$(this).unbind('click');
+// 	$('ol').append('<li>' + $(this).text());
+// });
+
+$('#revote').hover(function(){
+	$(this).toggleClass('style2');
+});
+
+$('#revote').click(function() {
+	location.reload();
+	});
+
+// $('#revote').click(function(){
+// 	$('#top3').removeClass('style1');
+// 	$('ol').text('');
+// });
+
+
+
+$('#send').click(function() {
+	 if($('li').length < 1){//0개인 경우		- '선택 항목이 없습니다.'
+		 showConfirm1('선택 항목이 없습니다.');
+	} else if($('li').length < 3){//3개 미만인 경우 - '3개를 선택해주세요.'
+		showConfirm1('3개를 선택해주세요.');
+	} else{//그 외의 경우		- '서버로 폼데이터 전송'
+		$('#frm').submit();
+	}
+	
+	
+	
+	
+	});
+
+function showConfirm1(msg) {
+	$('#msg').text(msg);
+	$( "#dialog-confirm1" ).dialog({
+	      resizable: false,
+	      height: "auto",
+	      width: 400,
+	      modal: true,
+	      buttons: {
+	        "확인": function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	    });
+}	
+
+// function showConfirm2(msg) {
+// 	$( "#dialog-confirm2" ).dialog({
+// 	      resizable: false,
+// 	      height: "auto",
+// 	      width: 400,
+// 	      modal: true,
+// 	      buttons: {
+// 	        "확인": function() {
+// 	          $( this ).dialog( "close" );
+// 	        }
+// 	      }
+// 	    });
+// }	
+
+
+
+});
+
+
+</script>
+
+</head>
+<body>
+
+	<h3>Let's Vote!</h3>
+
+
+
+	<form action="../htmls/result.html" method="get" id="frm"
+		enctype="multipart/form-data">
+
+		<fieldset>
+			<legend>10 beautiful places to visit in korea</legend>
+
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="M"> 다리 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="F"> 경복궁 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="M"> 강 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="F"> 풀밭 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="M"> 벚꽃 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="F"> 서울 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="M"> 벚꽃다리 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="F"> 등불축제 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="M"> 제주도 -->
+			<!-- 				</label> -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<label> <input type="radio" value="F"> 울릉도 -->
+			<!-- 				</label> -->
+
+			<!-- 			</div> -->
+
+		</fieldset>
+
+		<fieldset id="top3">
+			<legend>내 마음대로 TOP3</legend>
+			<ol>
+
+			</ol>
+		</fieldset>
+
+		<div id="revote">ReVote</div>
+		<div id="send">서버로 전송</div>
+	</form>
+	<!-- 	htmls/result.html 로 데이터 전송 -->
+
+
+
+
+	<!-- 메시지 팝업 다이얼로그 -->
+	<div id="dialog-confirm1" title="내 마음대로 TOP 3" style="display: none;">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 12px 12px 20px 0;"></span>
+				<span id="msg"></span>
+		</p>
+		<p>
+		10 beautiful places to visit in korea
+		</p>
+	</div>
+
+<!-- 	<div id="dialog-confirm2" title="내 마음대로 TOP 3" style="display: none;"> -->
+<!-- 		<p> -->
+<!-- 			<span class="ui-icon ui-icon-alert" -->
+<!-- 				style="float: left; margin: 12px 12px 20px 0;"></span> 3개를 선택해주세요. -->
+<!-- 		</p> -->
+<!-- 		<p> -->
+<!-- 		10 beautiful places to visit<br>in korea -->
+<!-- 		</p> -->
+<!-- 	</div> -->
+	
+	<!-- END 메시지 팝업 다이얼로그 -->
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>clock.html</title>
+<style>
+.btn {
+	float: right;
+}
+
+body {
+	background: yellow;
+}
+
+</style>
+
+</head>
+<body onload="setInterval(time, 1000)">
+	<button type="button" onclick="showDate()" class="btn">What
+		day is it today?</button>
+
+	<h3>DIGITAL CLOCK</h3>
+	<span id="cho" >시간</span>
+
+	
+	<script>
+
+	var text = document.getElementById('cho');
+
+
+	
+	function time(){
+		text.innerText = new Date().getHours() + "시 " +
+	       new Date().getMinutes() + "분 " +	
+	       new Date().getSeconds() + "초";
+		}
+	
+	var DAY = ['DAY', '월', '화', '수', '목', '금', '토', '일'];
+	var month = new Date().getMonth()
+	function showDate() {
+		alert("오늘은 " + new Date().getFullYear() + "년 " + 
+				new Date().getMonth() + "월 " +
+				new Date().getDate() + "일 " +
+				DAY[new Date().getDay()] + "요일입니다.");
+	}
+	</script>
+
+
+</body>
+</html>

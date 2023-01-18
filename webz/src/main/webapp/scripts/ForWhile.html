@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ForWhile.html</title>
+</head>
+<body>
+	<h3>for</h3>
+	<script>
+	for (var i = 1 ; i <=5 ; i++) {
+		document.write(i + ' ');
+	}
+	
+	//<img src= "../imgs/2.jpg">
+	for (var i = 2 ; i <=6 ; i++) {
+		document.write('<img src= "../imgs/' + i + '.jpg">');
+	}
+	
+	var fruits = ['apple', 'banana', 'orange'];
+	document.write('<br>' + fruits[0]);
+	document.write('<br>' + fruits[1]);
+	document.write('<br>' + fruits[2]);
+	document.write('<br>과일의 수 : ' + fruits.length + '<hr>');
+	
+
+	for (var i = 0 ; i <fruits.length ; i++) {
+		document.write(fruits[i] + " ");
+	}
+	
+	//nums 배열에 임의의 숫자 이미지 3개의 파일명을 저장
+	//실행 시마다 3개 이미지 중 하나를 랜덤하게 표시
+	
+	var randomimg = ['2.jpg', '3.jpg', '4.jpg'];
+	var comNum = Math.floor(Math.random() * 3);
+	document.write('<hr>');
+	document.write('<img src="../imgs/' + fruits[comNum] + '"><hr>');
+	
+	var dan = prompt('출력하실 단을 입력해주세요.')
+	document.write('<h3>' + dan + '단 출력</h3>');
+	
+	var i = 1;
+	while(i <= 9){
+		document.write(dan + ' * ' + i + ' = ' +
+						(dan * i++) + '<br>');
+	}
+	
+	document.write('<h3><h3>do while - ' + dan + '단 출력</h3>');
+	var i = 1;
+	do{
+		document.write(dan + ' * ' + i + ' = ' +
+						(dan * i++) + '<br>');
+	}while(i <= 9);
+	
+	document.write('<h3><h3>for - 19 ' + dan + '단 출력</h3>');
+	for (var i = 1; i <=19; i++) {
+		if(i > 9) { break; }
+		if(i % 2 == 0){ continue; }
+		
+		document.write(dan + ' * ' + i + ' = ' +
+				(dan * i) + '<br>');
+
+		}
+	</script>
+
+</body>
+</html>

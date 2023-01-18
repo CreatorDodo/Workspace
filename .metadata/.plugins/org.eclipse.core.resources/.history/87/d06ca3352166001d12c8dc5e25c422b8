@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ifExercise.html</title>
+</head>
+<body>
+
+	<h3>회원약관</h3>
+	<form action="../htmls/result.html" name="frm">
+		<input type="hidden" name="terms" value="yes">
+		<textarea rows="5" cols="50">회원약관</textarea>
+	<label>
+		 <input type="checkbox" name="chk">
+		 약관에 동의합니다.
+	</label>
+	<hr>
+	<input type="button" value="취소">
+	<input type="button" value="회원가입" onclick="chkTerms()">
+	</form>
+
+	<hr>
+	<h3>회원가입</h3>
+	<form action="../htmls/result.html" name="frm">
+		<input type="hidden" name="email">
+		이메일
+		<input type="text" name="email1" size="5">@<input type="text" name="email2" size="5"> 
+
+		<select name="email3" onchange="setEmail(this)">
+		<option value="직접입력" selected>직접입력</option>
+		<option value="gmail.com">gmail.com</option>
+		<option value="naver.com">naver.com</option>
+		</select>
+
+	</form>
+	
+		
+		
+	<script>
+		//이메일 선택 처리 함수
+		function setEmail(email3){
+			console.log(email3.value);
+		}
+	
+	
+		//약관 동의 체크 여부 확인 함수
+		function chkTerms() {
+			if(document.frm.chk.checked){
+				document.frm.submit(); //폼을 전송
+			}else{
+				alert('약관에 동의하셔야 회원가입이 가능합니다.');
+			}
+		}
+</script>
+
+
+</body>
+</html>

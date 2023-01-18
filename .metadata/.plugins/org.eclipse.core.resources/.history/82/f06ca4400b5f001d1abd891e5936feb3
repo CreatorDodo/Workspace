@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>table.html</title>
+</head>
+<body>
+	<h3>table</h3>
+	
+	<table border="1">
+	<tr><th>순위</th>
+		<th>영화명</th>
+		<th>누적 관객수</th>
+		<th>포스터</th>
+		<th>비고</th></tr>
+	<tr><td>1</td>
+	<td>자백</td>
+	<td>556,344</td>
+	<td><img src="https://movie-phinf.pstatic.net/20221027_186/1666838951651Y4Vt8_JPEG/movie_image.jpg?type=m203_290_2" alt="영화 자백 포스터" width="80" height="100"></td>
+	<td></td></tr>
+	<tr></tr>
+	</table>
+</body>
+</html>

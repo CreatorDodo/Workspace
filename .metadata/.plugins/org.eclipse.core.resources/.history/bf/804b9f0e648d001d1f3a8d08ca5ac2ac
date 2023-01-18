@@ -1,0 +1,31 @@
+package edu.springz.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
+public class CommonController {
+	
+	@GetMapping("accessDenied")
+	public void accessDenied(Model model) {
+		log.info("accessDenied()");
+		
+
+		model.addAttribute("msg", "접근 불가 - 권한 부족");		//msg 속성에 '접근 불가 - 권한 부족'을 저장하여
+		//결과 페이지로 전달
+	}
+	
+	@GetMapping("customLogin")
+	public void customLogin(Model model) {
+		log.info("customLogin()");
+		
+
+		model.addAttribute("msg", "접근 불가 - 권한 부족");		//msg 속성에 '접근 불가 - 권한 부족'을 저장하여
+		//결과 페이지로 전달
+	}
+
+}

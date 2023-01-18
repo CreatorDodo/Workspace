@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>changeColor.html</title>
+<script src="../resources/script/jquery-3.6.1.js"></script>
+
+<script>
+	
+</script>
+
+<style>
+div {
+	width: 100px;
+	margin: 5px;
+	float: left;
+}
+
+input {
+	margin: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<h3>change colors</h3>
+	<div>background</div>
+	<input type="color" id="background" value="#ffffff"
+		onchange="backgrounder()"><span>#000000</span>
+
+	<br>
+	<div>font</div>
+	<input type="color" id="font" onchange="ft()"><span>#000000</span>
+
+	<br>
+	<div>border</div>
+	<input type="color" id="border" onchange="borders()"><span id="bs">#000000</span>
+
+	<br>
+	<hr>
+	<button type="button" id="resetBtn">RESET</button>
+
+
+
+	<script>
+		var bg = document.getElementById('background');
+		var font = document.getElementById('font');
+		var border = document.getElementById('border');
+		var spans = document.querySelectorAll('span');
+		function backgrounder() {
+
+			document.body.style.backgroundColor = bg.value;
+
+			spans[0].innerText = ' ' + bg.value;
+		}
+
+		function ft() {
+			document.body.style.color = font.value;
+
+			spans[1].innerText = ' ' + font.value;
+		}
+
+// 		function borders() {
+//					document.querySelectorAll('input').style.backgroundColor = border.value;
+// 			spans[2].innerText = ' ' + font.value;
+
+// 		}
+
+		$('#border').change(function() {
+			var color = $(this).val();
+			$('input').css({ borderColor : color,
+				borderWidth : '3px',
+				borderStyle : 'solid'});
+			$('#bs').text(color);
+// 			$(this).next().text(color);
+		});
+		
+		$('#resetBtn').click(function() {
+			location.reload();
+		});
+
+
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+package exam.vo;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import exam.util.DBCon;
+
+public class SurveyDAO {
+
+	
+		
+	//설문 보기
+	//내 설문 목록
+	//설문 목록
+	//설문 등록
+	//설문 수정
+	//설문 삭제
+	//설문 참여
+	//t_vote 테이블에 insert 후
+	//t_survey 테이블에 득표수 +1 update
+	
+	
+	private PreparedStatement pstmt;
+	private String query;
+	private ResultSet rs;
+	private Statement stmt;
+
+	public boolean insert(SurveyVO svo) {
+
+		try {
+			query ="INSERT INTO T_SURVEY(title, one, two, start_date, reg_date)" +
+					"VALUES(?, ?, ?, TO_DATE(?, 'yyyy.mm.dd'), SYSDATE)";
+			//VALUES('survey test??', 'yes', 'no', '20221107', SYSDATE);
+			
+			pstmt = DBCon.getConnection().prepareStatement(query);
+
+			pstmt.setString(1, svo.getTitle());
+			pstmt.setString(2, svo.getOne());
+			pstmt.setString(3, svo.getTwo());
+			pstmt.setString(4, svo.getStartDate());
+			int result = pstmt.executeUpdate();
+			if (result == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(pstmt);
+		}
+
+		return false;
+
+	}
+
+	//설문 목록
+	public List<SurveyVO> selectAllMember() {
+
+		query = "SELECT * FROM t_member ORDER BY id";
+		List<MemberVO> memberList = new ArrayList<>();
+		try {
+			pstmt = DBCon.getConnection().prepareStatement(query);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+//					아이디|이름|이메일|가입일자
+				MemberVO mvo = new MemberVO();
+				mvo.setId(rs.getString("id"));
+				mvo.setName(rs.getString("name"));
+				mvo.setEmail(rs.getString("email"));
+				mvo.setJoinDate(rs.getDate("joindate"));
+
+				memberList.add(mvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(rs, pstmt);
+		}
+//		return memberList;
+	}
+
+
+	//설문 보기
+	public MemberVO surveyList(String survey_NO) {
+
+		query = "select * FROM t_member WHERE id=?";
+
+		MemberVO mvo = null;
+
+		try {
+			pstmt = DBCon.getConnection().prepareStatement(query);
+
+//			pstmt.setString(1, id);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+//				아이디|이름|이메일|사진|성별
+				mvo = new MemberVO();
+				mvo.setId(rs.getString("id"));
+				mvo.setName(rs.getString("name"));
+				mvo.setEmail(rs.getString("email"));
+				mvo.setJoinDate(rs.getDate("joindate"));
+				mvo.setPhoto(rs.getString("photo"));
+				mvo.setGender(rs.getString("gender"));
+				return mvo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(rs, pstmt);
+		}
+		return null;
+
+	}
+	
+	
+	public boolean changePw(String id, String pw) {
+		query = "UPDATE T_MEMBER SET pw=? where id=?";
+		try {
+			pstmt = DBCon.getConnection().prepareStatement(query);
+
+
+			pstmt.setString(1, pw);
+			pstmt.setString(2, id);
+			int result = pstmt.executeUpdate(); // update 쿼리를 실행하고 결과를 받아 성공 여부 확인
+			if (result == 1) { // 1행이 변경되면 비밀번호 변경 성공
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(pstmt);
+		}
+
+		return false;
+
+	}
+
+//	// 회원 정보 변경
+//	public boolean update(MemberVO mvo) {
+//		return false;
+//	}
+
+	public boolean delete(String id) {
+		query = "DELETE T_MEMBER where id=?";
+	try {
+		pstmt = DBCon.getConnection().prepareStatement(query);
+		pstmt.setString(1, id);
+		int result = pstmt.executeUpdate(); // delete 쿼리를 실행하고 결과를 받아 성공 여부 확인
+		if (result == 1) { // 1행이 변경되면 비밀번호 변경 성공
+			return true;
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DBCon.close(pstmt);
+	}
+
+	return false;
+
+	}
+
+}
+}

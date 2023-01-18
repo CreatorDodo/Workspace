@@ -1,0 +1,22 @@
+package edu.springz.domain;
+
+import java.util.*;
+
+import lombok.Data;
+
+@Data
+public class AuthVO {
+	private int bno;
+	private String title;
+	private String content;
+	private String writer;
+	private Date regDate;
+	private Date updateDate;
+	private int replyCnt;
+	private List<BoardAttachVO> attachList;
+	
+	
+	
+	
+	
+}

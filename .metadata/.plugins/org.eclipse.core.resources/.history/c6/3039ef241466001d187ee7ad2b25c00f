@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>if.html</title>
+</head>
+<body>
+	<h3>자바스크립트 if</h3>
+	<script>
+	var wongum = prompt('원금을 입력하세요~');
+	
+	
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ifExercise.html</title>
+</head>
+<body>
+	<h3>회원약관</h3>
+
+	<label>
+		 <input type="checkbox" value="약관에 동의합니다.">
+		 약관에 동의합니다.
+	</label>
+<a href="../index.html"> <button>취소</button> <button>회원가입</button>
+
+
+		<textarea rows="5" 
+					cols="50" readonly name="terms">READONLY
+					1.회원은 사이트를 이용하려면
+					2.약관에 동의하여야 한다.
+		</textarea><br><br>
+
+
+</body>
+</html>

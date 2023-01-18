@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="resources/"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="../"/>
+			<item value="contains"/>
+			<item value="contain"/>
+			<item value="fa-times"/>
+			<item value="fa-gear"/>
+			<item value="mini"/>
+			<item value="chat"/>
+			<item value="primary-font"/>
+			<item value="&lt;fmt:formatDate value="/>
+			<item value="&lt;fmt:formatDate value=&quot;${bvo.regDate }&quot; type=&quot;date&quot; pattern=&quot;yyyy-MM-dd&quot;/&gt;"/>
+			<item value="hat"/>
+			<item value="page-item"/>
+			<item value="sourceMappingURL=bootstrap.bundle.min.js.map "/>
+			<item value="modal"/>
+			<item value="20000"/>
+		</list>
+		<list key="replacehistory">
+			<item value="resources/"/>
+			<item value="/resources/"/>
+			<item value="/resources"/>
+			<item value="paginate_button"/>
+			<item value="&quot;resources/"/>
+			<item value=""/>
+			<item value="&quot;/resources/"/>
+			<item value="--%&gt;"/>
+			<item value="&lt;%--"/>
+			<item value="delivery"/>
+			<item value="../imgs/관리자.jpg"/>
+			<item value="../imgs/기본.jpg"/>
+			<item value="&quot;resources/css/"/>
+			<item value="&quot;resources/assets/"/>
+			<item value="setTwo"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1280"/>
+		<item key="DIALOG_Y_ORIGIN" value="214"/>
+		<item key="DIALOG_WIDTH" value="369"/>
+		<item key="DIALOG_HEIGHT" value="510"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="324"/>
+		<item key="DIALOG_Y_ORIGIN" value="561"/>
+	</section>
+</section>

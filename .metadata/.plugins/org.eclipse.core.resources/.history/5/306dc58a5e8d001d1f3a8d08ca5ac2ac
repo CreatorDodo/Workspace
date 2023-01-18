@@ -1,0 +1,21 @@
+package edu.springz.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
+public class CommonController {
+	
+	@GetMapping("accessDenied")
+	public void accessDenied(RedirectAttributes rttr) {
+		//msg 속성에 '접근 불가 - 권한 부족'을 저장하여
+		rttr.addAttribute("msg", "접근 불가 - 권한 부족");
+		//결과 페이지로 전달
+	}
+
+}

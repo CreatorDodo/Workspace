@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>if.html</title>
+</head>
+<body>
+	<h3>자바스크립트 if</h3>
+	<script>
+	var rate = 0.05;
+	var wongum = prompt('원금을 입력하세요~');
+	var eeja;
+	
+	//원금을 입력받아 이자를 계산한 후
+	//원금과 이자를 경고창으로 표시
+	
+	eeja = alert(wongum * rate);
+	alert('원금 :' + wongum + '이자 :' + eeja)	
+	
+	</script>
+
+</body>
+</html>

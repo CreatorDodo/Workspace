@@ -1,0 +1,41 @@
+1670803754328	Move 'java' to 'webapp'
+1670803761144	Move 'java' to 'main'
+1670805118241	Copy file
+1670812872529	Delete element
+1670922117350	Copy package
+1670922125880	Delete element
+1670922145551	Rename package 'jspz.bundle'
+1670922956492	Copy file
+1670977150564	Rename resource 'message.properties'
+1670977158639	Rename resource 'message_ko.properties'
+1670977165954	Rename resource 'message_ko1.properties'
+1670977186963	Rename resource 'message_ko.properties'
+1670980203766	Delete element
+1670980735391	Delete element
+1670981390614	Copy file
+1670981413483	Delete element
+1670981557779	Rename resource 'message_jp2.properties'
+1670982129835	Delete element
+1670982151081	Delete element
+1670982169403	Delete element
+1670982210715	Rename resource 'message_jp'
+1670982330504	Copy file
+1671000175128	Copy folder
+1671065969184	Copy file
+1671065990298	Copy file
+1671066279291	Rename resource 'productDelete.jsp'
+1671066380809	Copy file
+1671066796133	Copy file
+1671085866361	Copy file
+1671087031472	Copy file
+1671154065659	Delete element
+1671154093275	Rename package 'jspz.listener'
+1671154178532	Delete element
+1671155416032	Copy file
+1671155421977	Copy file
+1671163112681	Copy file
+1671163128663	Rename resource 'productRemoveProc.jsp'
+1671163139894	Copy file
+1671163148733	Delete element
+1671163152707	Copy file
+1671163163234	Rename resource 'productModifyProc.jsp'

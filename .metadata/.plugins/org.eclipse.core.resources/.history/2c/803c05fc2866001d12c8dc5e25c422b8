@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>switchExercise.html</title>
+</head>
+<body>
+	<h3>컴퓨터와 가위 바위 보</h3>
+	<!-- 1. 가위, 바위, 보 이미지를 화면에 표시
+		 2. 사용자가 이미지 중 하나를 클릭하면
+		 3. 컴퓨터가 랜덤하게 선택한 이미지와 비교하여 표시하고
+		 4. 가위 바위 보 결과를 화면에 표시
+		 
+	 -->
+	 <img src="../imgs/가위.png" width="100px" height="100px">
+	 <img src="../imgs/바위.png"  width="100px" height="100px">
+	 <img src="../imgs/보.png"  width="100px" height="100px">
+	<script>
+	var com = Math.random() * 3;
+	console.log(com);
+	console.log(Math.floor(com));	
+	
+	
+	</script>
+	
+</body>
+</html>

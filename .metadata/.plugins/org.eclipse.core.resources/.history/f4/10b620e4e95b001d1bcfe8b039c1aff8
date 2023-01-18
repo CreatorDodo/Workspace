@@ -1,0 +1,307 @@
+package exam.main;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import exam.dao.LoginCheck;
+import exam.dao.MemberDAO;
+import exam.util.DBCon;
+import exam.vo.MemberVO;
+
+//회원관리 시스템
+//- 회원 관리를 위한 시스템
+//- 회원은 회원가입
+
+public class MemberMain {
+	private int input;
+	private Scanner scan = new Scanner(System.in);
+	private MemberDAO mdao = new MemberDAO();
+	private LoginCheck lc = new LoginCheck();
+	private String id;
+	private String pw;
+	
+	
+	public void menu() throws IOException {
+	while(true) {
+		System.out.println(">> MEMBER only SYSTEM MAIN --------");
+		System.out.println("1.가입	\t2.로그인	\t3.시스템 종료");
+		System.out.print(">> 선택 : ");
+		input = scan.nextInt();
+//		System.in.skip(2);	//입력 버퍼에서 2바이트 건너뛰기
+		scan.nextLine();
+//		System.out.println(input);
+
+		if(input == 1) {
+			join();		break;	//회원가입 메뉴 실행
+		}else if((char)input == 2){
+			login();	break;	//로그인 메뉴 실행
+		}else if((char)input == 3){
+			System.out.println(">> 시스템을 종료합니다");
+			scan.close();
+			System.exit(0);
+		}else {
+			System.out.println(">> 1 ~ 3 중에 하나를 선택해주세요.");
+			System.out.println();
+			}
+		}
+	}
+	
+	
+	public void join () throws IOException {
+		MemberVO mvo = new MemberVO();
+		//회원가입에 필요한 데이터들을 입력받아서
+		//MemberVO 객체의 각 필드에 저장하고
+		//MemberDAO의 회원 가입 메소드를 호출하고
+		//결과를 넘겨받아
+		//회원가입에 성공한 경우 "회원 가입이 완료되었습니다."
+		//					"로그인 후 이용해주세요."를 출력
+		System.out.println(">> MEMBER only SYSTEM 회원 가입 --------");
+		System.out.print("   아이디 : ");
+		String id = scan.nextLine();	mvo.setId(id);
+	
+		
+		System.out.print("   비밀번호 : ");
+		String pw = scan.nextLine();	mvo.setPw(pw);
+
+		System.out.print("   이름 : ");
+		String name = scan.nextLine();	mvo.setName(name);
+		
+		System.out.print("   이메일 : ");
+		String email = scan.nextLine();	mvo.setEmail(email);
+		
+		System.out.print("   사진 : ");
+		String photo = scan.nextLine();	mvo.setPhoto(photo);
+
+		System.out.print("   성별 : ");
+		String gender = scan.nextLine();	mvo.setGender(gender);
+
+		
+		boolean result = mdao.insertMember(mvo);
+		if(result == true) {//결과를 넘겨받아 회원가입에 성공한 경우
+//			 lc.putMember(id, pw);//신규 회원 아이디와 비밀번호를 loginMap에 저장하는 메소드 호출
+			System.out.println("회원 가입이 완료되었습니다.");
+			System.out.println("로그인 후 이용해주세요.");
+			System.out.println();
+			menu();
+		}
+
+
+		
+	}
+	
+	public void login () throws IOException {
+		List<MemberVO> members = new ArrayList<>();
+		
+		System.out.println();
+		System.out.println(">> MEMBER only SYSTEM 로그인 --------");
+		System.out.print("   아이디 : ");
+		id = scan.nextLine();
+
+		
+		System.out.print("   비밀번호 : ");
+		pw = scan.nextLine();
+
+		//로그인 체크 메소드 호출
+		//로그인 성공 시 - 관리자이면 adminMenu() 호출
+		//				그렇지 않으면 memberMenu() 호출
+		//로그인 실패 시 - "아이디 또는 비밀번호가  일치하지 않습니다." 출력하고
+		//메인 메뉴 표시
+
+		boolean result = lc.loginChk(id, pw);
+		if(result == true) {
+			if(id.equals("admin")) {
+				adminMenu();
+			}else {
+				memberMenu();
+			}
+				
+		}else {
+			System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
+			System.out.println();
+			menu();
+		}
+		
+	}
+	
+	public void memberinfo() throws IOException	{
+		MemberVO mvo = mdao.select(id);
+		System.out.println("아이디 : " + mvo.getId());
+		System.out.println("이름 : " + mvo.getName());
+		System.out.println("이메일 : " + mvo.getEmail());
+		System.out.println("사진 : " + mvo.getPhoto());
+		System.out.println("성별 : " + mvo.getGender());
+		System.out.println();
+		memberMenu();
+	}
+	
+	public void memberRemove() throws IOException {
+		System.out.println(">> 탈퇴하시려면 y를 입력해주세요. : ");
+		String yesNo = scan.nextLine();
+		
+			if(yesNo.equalsIgnoreCase("y")) {
+				boolean result = mdao.delete(id);
+				if(result == true) {
+					System.out.println(">>회원탈퇴가 완료되었습니다.");
+					logout();
+				}
+			}else {
+				System.out.println(">> 회원탈퇴가 취소되었습니다.");
+			}
+			System.out.println();
+			memberMenu();
+		
+	}
+	
+//아이디중복체크
+//아이디 찾기, 비밀번호 찾기
+//회원정보수정
+//관리자 회원 탈퇴시키기
+//관리자가 회원정보 확인하기
+
+	public void changePw() throws IOException {
+
+		System.out.println(">>비밀번호를 변경합니다.");
+		
+		System.out.print("  기존 비밀번호 : ");
+		String pwOld = scan.nextLine();
+		
+		System.out.print("  신규 비밀번호 : ");
+		String pwNew = scan.nextLine();
+		
+		//기존 비밀번호가 로그인 시의 비밀번호와 일치하는 경우 변경
+		if(pwOld.equals(pw)) {
+			boolean result = mdao.changePw(id, pwNew);
+			if(result == true) {
+
+				System.out.println(">>비밀번호가 변경되었습니다.");
+			}
+		}else {
+			System.out.println(">> 비밀번호가 일치하지 않습니다.");
+		}
+		System.out.println();
+		memberMenu();
+	}
+	
+	public void logout() throws IOException {
+		id = pw = null;
+	System.out.println("로그아웃이 완료되었습니다.");
+	menu();
+	}
+	
+	public void adminMenu() throws IOException {
+		System.out.println(">> MEMBER only SYSTEM 관리자 모드 --------");
+		System.out.println("1.회원 목록	\t2.설문관리 \t3.로그아웃");
+		System.out.print(">> 선택 : ");
+		input = scan.nextInt();
+		
+		if(input == 1) {
+			memberList();
+		}else if(input == 2){
+			new SurveyMain(scan,id).adminmenu();
+//			System.out.println("1.프로필	\t2.비밀번호 변경 \t3.탈퇴");
+//			input = scan.nextInt();
+//			if(input == 1) {
+//				System.out.println("확인하실 회원의 아이디를 입력해주세요.");
+//				System.out.print("ID : ");
+//				id = scan.nextLine();
+//				memberinfo();
+//			}else if(input == 2){
+//				System.out.println("변경하실 회원의 아이디와 비밀번호를 입력해주세요.");
+//				System.out.print("ID : ");
+//				System.out.print("PW : ");
+//				id= scan.nextLine();
+//				pw= scan.nextLine();
+//				changePw();
+//			}else if(input == 3){
+//				System.out.println("탈퇴시킬 회원의 아이디를 입력해주세요.");
+//				System.out.print("ID : ");
+//				id= scan.nextLine();
+//				memberRemove();
+//			}
+//			else {
+//				System.out.println(">> 1 ~ 3 중에 하나를 선택해주세요.");
+//				System.out.println();
+//			}
+			
+		}else if(input == 3){
+			logout();
+		}
+		else {
+			System.out.println(">> 1 ~ 3 중에 하나를 선택해주세요.");
+			System.out.println();
+		}
+	}
+
+
+	private void memberList() throws IOException {
+		
+		//MemberDAO 클래스의 selectAllMember() 메소드를 호출하여
+		//전체 회원 목록을 넘겨 받는다
+		//만약 회원 목록이 없다면
+		
+		List<MemberVO> memberList = mdao.selectAllMember();
+		if(memberList == null || memberList.size() < 1) {
+		System.out.println(">> 가입된 회원이 없습니다.");
+		adminMenu();
+		}
+		else{//그렇지 않다면
+		System.out.println("아이디|이름|이메일|가입일자");	
+		System.out.println("---------------------");	
+		SimpleDateFormat dateFmt
+		= new SimpleDateFormat("yyyy.MM.dd");
+		for (MemberVO mvo : memberList) {
+			System.out.println(mvo.getId() + "|" +
+					mvo.getName() + "|" +
+					mvo.getEmail() + "|" +
+					dateFmt.format(mvo.getJoinDate()));
+			
+		}
+//		for (int i = 0; i < memberList.size(); i++) {
+//			System.out.println(
+//					memberList.get(i).getId() + "\t" +
+//					memberList.get(i).getName() + "\t" +
+//					memberList.get(i).getEmail() + "\t" +
+//					memberList.get(i).getJoinDate());
+//		}
+		
+		
+		}
+
+		
+	}
+
+
+	public void memberMenu() throws IOException {
+		System.out.println(">> MEMBER only SYSTEM 사용자 모드 --------");
+		System.out.println("1.내 정보	\t2.비밀번호 변경 \t3.회원탈퇴 \t4.설문 \t5.로그아웃");
+		System.out.print(">> 선택 : ");
+		input = scan.nextInt();
+		scan.nextLine();
+		if(input == 1) {
+			memberinfo();
+		}else if(input == 2){
+			changePw();
+		}
+		else if(input == 3){
+			memberRemove();
+		}
+		else if(input == 4){
+			new SurveyMain(scan).memberMenu();
+		}
+		else if(input == 5){
+			logout();
+		}
+	}
+
+
+	public static void main(String[] args) throws IOException {
+		new MemberMain().menu();
+//		DBCon.getConnection();
+		
+		
+	}
+
+}

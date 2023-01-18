@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ifExercise.html</title>
+</head>
+<body>
+	<h3>회원약관</h3>
+
+<input type="checkbox">약관에 동의합니다.
+	<label>
+		 <input type="checkbox" name="interest" value="약관에 동의합니다.">
+		 약관에 동의합니다.
+	</label>
+<button>취소</button>
+</body>
+</html>

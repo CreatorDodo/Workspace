@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>gawiBawiBo.html</title>
+
+<script src="../resources/script/jquery-3.6.1.js"></script>
+
+<script>
+	$(function() {
+		randomImg = [ '../imgs/gawi.PNG', '../imgs/bawi.png', '../imgs/bo.png' ];
+		timer = ''; //setInterval() 저장
+		interval = 100; //컴퓨터 이미지 변경 간격
+		com = 0; //컴퓨터의 가위바위보 값
+		man = 0; //사람의 가위바위보 값
+		result = ''; //게임 결과
+		round = win = draw = lose = comScore = manScore = 0;
+
+		//1.start 버튼을 클릭하면 start 버튼은 사라지고
+		$('#startBtn').click(function() {
+			play();
+		});
+
+		
+		
+		function showResultBoard() { //게임 결과 표시
+			var tag = result + 
+			"<div id= 'scoreBoard'>[ ROUND" + (++round) + "]<br>" +
+			'컴 ' + comScore + ' vs. ' + manScore + ' 나<br>' +
+			win + '승 ' + draw + '무 ' + lose + '패</div>' +
+			"<div id = 'stopBtn' class='stopContinue'>그만하기</div>" +
+			"<div id = 'continueBtn' class='stopContinue'>계속하기</div>";
+// 			4.컴퓨터와 대결한 결과가 화면에 표시되고
+			$('#resultBoard').html(tag).fadeIn('slow');	
+		
+// 			if (com == 0) {
+// 				if ($('#manImg').attr('src') == randomImg[0]) {
+// 					$('#resultBoard').text('U DRAW');
+// 				} else if ($('#manImg').attr('src') == randomImg[1]) {
+// 					$('#resultBoard').text('U WIN');
+// 				} else {
+// 					$('#resultBoard').text('U LOSE');
+// 				}
+
+// 			} else if (com == 1) {
+// 				if ($('#manImg').attr('src') == randomImg[0]) {
+// 					$('#resultBoard').text('U LOSE');
+// 				} else if ($('#manImg').attr('src') == randomImg[1]) {
+// 					$('#resultBoard').text('U DRAW');
+// 				} else {
+// 					$('#resultBoard').text('U WIN');
+// 				}
+
+// 			} else {
+// 				if ($('#manImg').attr('src') == randomImg[0]) {
+// 					$('#resultBoard').text('U WIN');
+// 				} else if ($('#manImg').attr('src') == randomImg[1]) {
+// 					$('#resultBoard').text('U DRAW');
+// 				} else {
+// 					$('#resultBoard').text('U LOSE');
+// 				}
+
+// 			}
+			
+		}
+
+		function play() { //가위 바위 보 대결
+
+			$('#startBtn').fadeOut('slow');
+			timer = setInterval(changeImg, interval);
+
+			//3.사람이 화면 하단의 가위, 바위, 보 중 하나를 클릭하면
+			$('.gababo').hover(function() {
+				$(this).toggleClass('line');
+			}).one('click', function() {
+				//	컴퓨터 이미지 랜덤 변경을 멈추고
+				clearInterval(timer);
+				//	물음표 이미지가 선택한 이미지로 변경됨
+				$('#manImg').attr('src', $(this).attr('src'));
+				
+				$('.gababo').unbind().removeClass('line');	
+				switch ($(this).data('ino') - com) { //게임 판정
+				case 1:
+				case -2:
+					result = "U WIN!";
+					win++;
+					manScore++;
+					break; //사람이 이긴 경우			
+				case 0:
+					result = "DRAW!";
+					draw++;
+					break;//비긴 경우
+				default:
+					result = "U LOSE!";
+					lose++;
+					comScore++;//사람이 진 경우	
+					break;
+				}
+
+				showResultBoard();
+			});
+		}
+
+	//5.게임 그만하기 또는 계속하기 처리
+	$('#resultBoard').on('click', function(event) {
+		if(event.target.id == 'stopBtn' && confirm('게임을 그만하시겠습니까?')){
+			//그만하기 버튼이 눌리고 확인을 선택한 경우
+			result = ''; //게임 결과
+			round = win = draw = lose = comScore = manScore = 0;
+			$('#manImg').attr('src', '../imgs/question.png');
+			$('#resultBoard').fadeOut();
+			$('#startBtn').slideDown('slow');
+		} else if(event.target.id == 'continueBtn'){
+			//계속하기 버튼이 눌린 경우
+			$('#manImg').attr('src', '../imgs/question.png');
+			$('#resultBoard').fadeOut();
+			play();
+		}
+	});
+		
+	//2.컴퓨터 이미지가 랜덤하게 변경됨
+	function changeImg() { //난수 추출 및 컴퓨터 이미지 변경
+		while (true) {
+			var nansu = Math.floor(Math.random() * 3);
+			if (com != nansu) {
+				$('#comImg').attr('src', randomImg[nansu]);
+				com = nansu;
+				break;
+			}
+		}
+	}
+
+	});
+</script>
+
+
+
+<style>
+#gameArea {
+	position: relative;
+	margin: auto;
+	width: 500px;
+	height: 400px;
+	text-align: center;
+	border: 5px solid lightpink;
+	box-shadow: 1px 1px 1px gray;
+	border-radius: 20px;
+}
+
+legend {
+	font-size: 20pt;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+hr { margin-bottom:15px; margin-top: 15px; }
+
+img {
+	width: 150px;
+	height: 150px;
+}
+
+#startBtn, #resultBoard {
+	background: lightpink;
+	color: white;
+	position: absolute;
+	left: 110px;
+	top: 40px;
+	width: 300px;
+	height: 170px;
+	opacity: 0.95;
+	font-size: 50pt;
+	font-weight: bold;
+	text-align: center;
+	border: 5px solid white;
+	box-shadow: 1px 1px 1px gray;
+	text-shadow: 2px 2px 2px gray;
+	border-radius: 30px;
+	padding-top: 55px;
+}
+
+#resultBoard { display:none; padding-top:10px; height:215px; }
+
+.gababo {
+	border: 1px solid white;
+}
+
+.line {
+	border: 1px solid lightpink;
+	border-radius: 10px;
+	box-shadow: 1px 1px 3px silver;
+}
+
+#scoreBoard, .stopContinue { font-weight:bold; font-size:15pt; color:white; text-shadow:none; line-height:150%; }
+.stopContinue { width:90px; position:relative; left:30px; top:10px; border:5px solid white; box-shadow:1px 1px 3px silver; background:#eeeeee; color:gray; padding:5px; border-radius:10px; text-align:center; float:left; }
+.stopContinue:hover { background:silver; color:white; }
+
+</style>
+
+
+
+</head>
+
+
+
+<body>
+	<fieldset id="gameArea">
+		<legend>가위 바위 보 게임 ver 0.2</legend>
+		<img src="../imgs/gawi.PNG" id="comImg"> <img
+			src="../imgs/vs.png"> <img src="../imgs/question.png"
+			id="manImg">
+		<hr>
+		<img src="../imgs/gawi.PNG" class="gababo" data-ino="0" id="gawi">
+		<img src="../imgs/bawi.png" class="gababo" data-ino="1" id="bawi">
+		<img src="../imgs/bo.png" class="gababo" data-ino="2" id="bo">
+
+		<div id="startBtn">START</div>
+		<div id="resultBoard"></div>
+	</fieldset>
+
+	<script>
+		//1.start 버튼을 클릭하면 start 버튼은 사라지고
+		//2.컴퓨터 이미지가 랜덤하게 변경됨
+		//3.사람이 화면 하단의 가위, 바위, 보 중 하나를 클릭하면
+		//	컴퓨터 이미지 랜덤 변경을 멈추고
+		//	물음표 이미지가 선택한 이미지로 변경됨
+		//4.컴퓨터와 대결한 결과가 화면에 표시되고
+		//5.게임을 계속하기를 선택하면 대결 결과가 사라지고 1 ~ 4를 반복
+		//	게임 그만하기를 선택하면 화면에 start 버튼을 표시
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+package exam.vo;
+
+public class SurveyDAO {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

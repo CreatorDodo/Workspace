@@ -1,0 +1,2 @@
+@charset "UTF-8";
+input[type]:focus { background: lightyellow; }

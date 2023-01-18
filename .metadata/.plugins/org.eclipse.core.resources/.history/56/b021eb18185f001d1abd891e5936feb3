@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>form.html</title>
+</head>
+<body>
+	<h3>form tag</h3>
+	서버로 데이터를 전송하기 위해 사용<br>
+	<ul>
+		<li>GET 방식
+			<ul>
+				<li>URL 주소 뒤에 파라미터를 붙여서 데이터 전달
+				<li>길이 제한 - 최대 2048자(4096바이트)
+				<li>북마크, 뒤로가기 가능
+				<li>보안 X
+			</ul>
+		</li>
+		<li>POST 방식
+			<ul>
+				<li>HTTP Request 헤더에 포함시켜서 데이터 전달
+				<li>길이 제한 X
+				<li>북마크, 뒤로가기 X
+				<li>보안 O
+			</ul>
+		</li>
+	</ul>
+	
+	
+</body>
+</html>

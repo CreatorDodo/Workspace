@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>list.html</title>
+</head>
+<body>
+	<h3>Unordered List</h3>
+	<ul>
+	<li>Africa</li>
+	<li>Europe</li>
+	<li>Asia</li>
+	</ul>
+
+</body>
+</html>

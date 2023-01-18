@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>objects.html</title>
+</head>
+<body>
+	<h3>자바스크립트 객체</h3>
+	<script>
+	var bike = {
+		maker : '3000Leeeee',
+		speed : 0,
+		color : 'red',
+		
+		start : function(speed){
+			this.speed += 10;
+			console.log('자전거 출발');
+		},
+		stop : function(speed){
+			this.speed = 0;
+			console.log('자전거 정지');
+		}
+	}
+	
+	console.log(bike.color + '자전거 속도:' +
+				bike['speed']);
+	
+	//bike 객체의 color 속성값을 '빨강'으로 변경하고
+	//start 메소드 호출
+	
+	bike.color = '빨강';
+	bike.start();
+	console.log(bike.color + '자전거 속도:' +
+			bike['speed']);
+	
+	console.log('-----------------------');
+	for(var key in bike) {
+		console.log(key + ' : ' + bike[key]);
+	}
+	
+	bike.pedal = 2;
+	bike.speedUp = function(speed){
+		this.speed += speed;
+		console.log('자전거 속도 증가');
+	}
+	
+	console.log('-----------------------');
+	for(var key in bike) {
+		console.log(key + ' : ' + bike[key]);
+	}
+	
+	</script>
+
+
+</body>
+</html>

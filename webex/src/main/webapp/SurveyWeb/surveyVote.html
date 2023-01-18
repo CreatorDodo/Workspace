@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>THE SURVEY</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="../survey/jquery-3.6.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+</head>
+<body>
+	<!-- 화면 상단 header -------------------------------------------- -->
+	<nav class="navbar navbar-expand navbar-dark bg-dark">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="../memberWeb/member.html">Home</a>
+			</div>
+			<div>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="#">설문조사</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- 메인 타이틀 ----------------------------------------- -->
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-4">설문 참여</h1>
+		</div>
+	</div>
+
+	<!-- 메인 ------------------------------------------------- -->
+	<div class="container">
+		<form action="surveyList.html" method="post" id="frm">
+			<div class="form-group row">
+				<label class="col-sm-2">설문 제목</label>
+				<div class="col-sm-8">
+					<input type="text" style="border: none; background: white;" value="키 150cm 차은우 vs 키 190cm 서장훈" readonly="readonly" name="title" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">설문 기간</label>
+				<div class="col-sm-4">
+					<input type="text" style="border: none; background: white;" value="2022.11.01 - 2022.11.30" readonly="readonly" name="startDate" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2"></label>
+				<div class="col-sm-10" style="position:relative;">
+					<img src="../imgs/차은우.jpg" width="200px" height="300px">
+					<div style="position:absolute; top: 110px; left: 190px;"><img src="../imgs/vs.png" width="60px" height="60px"></div>
+			<img src="../imgs/서장훈.jpg"  width="200px" height="300px">				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2">선택 항목 1</label>
+				<div class="col-sm-8">
+					<label><input type="radio" name="onetwo" value="one"> 키 150cm 차은우</label>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2">선택 항목 2</label>
+				<div class="col-sm-8">
+					<label><input  type="radio" name="onetwo" value="two"> 키 190cm 서장훈</label>
+				</div>
+			</div>
+			
+			
+
+			<!-- 등록 취소 버튼 -->
+			<div class="text-right">
+				<input type="button" value="이전으로" onclick="history.back()" class="btn btn-secondary backBtn">
+				<input type="button" value="투표하기" id="vote" class="btn btn-warning voteBtn">
+
+			<input type="hidden" name="surveyNo" value="10">	
+				
+			</div>
+		
+			
+		</form>
+	</div>
+
+<!-- 투표하기 확인 다이얼로그 -->
+	<div id="dialog-confirm" title="Vote THE SURVEY" style="display: none;">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 12px 12px 20px 0;"></span>
+				<span id="msg"></span>
+		</p>
+	</div>
+<!-- END 투표하기 확인 다이얼로그 -->
+	
+	<!-- 메시지 팝업 다이얼로그 -->
+	<div id="dialog-confirm1" title="내 마음대로 TOP 3" style="display: none;">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 12px 12px 20px 0;"></span>
+				<span id="msg"></span>
+		</p>
+	</div>
+		
+
+	<!-- 화면 하단 footer --------------------------------------- -->
+	<footer class="container">
+		<hr>
+		<p>&copy; copyright by THE SURVEY</p>
+	</footer>
+	
+	<script>
+	
+// 	$('#vote').click(function() {
+// 		 if($('input:radio[name=onetwo]').is(':checked')){
+// 			 showConfirm1('선택하신 항목에 투표하시겠습니까?');
+// 		} else{
+// // 			$('#dialog-confirm').attr("title", "알림");
+// 			showConfirm2('투표하실 항목을 선택해주세요.');
+// 		}
+		
+		
+		
+		
+// 		});
+	
+// 	function showConfirm1(msg) {
+// 		$('#msg').text(msg);
+// 		$( "#dialog-confirm" ).dialog({
+// 		      resizable: false,
+// 		      height: "auto",
+// 		      width: 400,
+// 		      modal: true,
+// 		      buttons: {
+// 		        "확인": function() {
+// 		          $( this ).dialog( "close" );
+// 		          location.href = 'surveyList.html';
+// 		        },
+// 		        "취소": function() {
+// 			          $( this ).dialog( "close" );
+// 			        }
+// 		      }
+// 		    });
+// 	}
+	
+// 	function showConfirm2(msg) {
+// 		$('#msg').text(msg);
+// 		$( "#dialog-confirm" ).dialog({
+// 		      resizable: false,
+// 		      height: "auto",
+// 		      width: 400,
+// 		      modal: true,
+// 		      buttons: {
+// 		        "Ok": function() {
+// 		          $( this ).dialog( "close" );
+// 		        }
+// 		      }
+// 		    });
+// 	}
+	
+	$(function() {
+		$('.voteBtn').click(function() {
+			if($(':radio').is(':checked')){ //라디오가 선택되었다면 투표하기 확인
+			$('#msg').text('선택하신 항목에 투표하시겠습니까?');
+			$('p').css('visibility', 'visible');
+			$( "#dialog-confirm" ).dialog({
+			      resizable: false,
+			      height: "auto",
+			      width: 400,
+			      modal: true,
+			      buttons: {
+			        "확인": function() {
+			        	$('#frm').submit();
+			          $( this ).dialog( "close" );
+			        },
+			        "취소": function() {
+			          $( this ).dialog( "close" );
+			        }
+			      }
+			    });
+		
+		} else {	//그렇지 않으면 선택 확인 알림
+			$('#msg').text('투표하실 항목을 선택해주세요.');
+	 		$( "#dialog-confirm" ).dialog({
+	 		      resizable: false,
+	 		      height: "auto",
+	 		      width: 400,
+	 		      modal: true,
+	 		      buttons: {
+	 		        "Ok": function() {
+	 		          $( this ).dialog( "close" );
+	 		        }
+	 		      }
+	 		    });
+		}
+	});
+	});
+
+	
+	</script>
+	
+	
+</body>
+</html>

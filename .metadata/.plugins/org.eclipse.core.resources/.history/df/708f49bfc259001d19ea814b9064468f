@@ -1,0 +1,12 @@
+
+
+/* Create Tables */
+
+CREATE TABLE NEW_TABLE
+(
+	no number NOT NULL,
+	PRIMARY KEY (no)
+);
+
+
+

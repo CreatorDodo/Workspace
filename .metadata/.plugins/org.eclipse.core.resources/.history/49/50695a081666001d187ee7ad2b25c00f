@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>if.html</title>
+</head>
+<body>
+	<h3>자바스크립트 if</h3>
+	<script>
+	//원금을 입력받아 이자를 계산한 후
+	//원금과 이자를 경고창으로 표시
+	var rate = 0.05;
+	var wongum = prompt('원금을 입력하세요~');
+	var eeja = wongum * rate;
+	alert('원금 ' + wongum + '의 이자는 ' + eeja + '입니다.');
+
+
+	
+	//취소 버튼이 눌린 경우 - 이자 계산 취소 메시지 출력
+	//값을 입력하지 않고 확인 버튼을 누른 경우 - 원금 미입력 메시지 출력
+	//그 외의 경우
+	if (wongum == null) {
+		alert('취소되었습니다.')
+	}else if(wongum == '') {
+		alert('원금을 입력해주세요.')
+	}else {alert('원금 ' + wongum + '의 이자는 ' + eeja + '입니다.');}
+	
+	</script>
+
+</body>
+</html>

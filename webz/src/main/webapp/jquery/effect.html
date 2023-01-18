@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>effect.html</title>
+<script src="../resources/script/jquery-3.6.1.js"></script>
+
+<script>
+
+$(function(){
+	
+	$('button').click(function(){
+		var lbl = $(this).text();
+		var txt = $('#txt')
+		
+		//1.기본 - 보이기/숨기기/토글
+// 		switch(lbl) {
+// 		case 'SHOW'		:	txt.show();	break;
+// 		case 'HIDE'		:	txt.hide();	break;
+// 		case 'TOGGLE'		:	txt.toggle();	break;		
+// 		}
+		
+		//2.시간 지정
+		switch(lbl) {
+		case 'SHOW'		:	txt.show('slow');	break;
+		case 'HIDE'		:	txt.hide('fast');	break;
+		case 'TOGGLE'		:	txt.toggle('normal');	break;		
+		}
+		
+		//3.슬라이드 효과
+		switch(lbl) {
+		case 'SLIDE UP'		:	txt.slideUp('slow');	break;
+		case 'SLIDE DOWN'		:	txt.slideDown('fast');	break;
+		case 'SLIDE TOGGLE'		:	txt.slideToggle(2000);	break;		
+		}
+		
+		//4.fade 효과
+		switch(lbl) {
+		case 'FADE IN'		:	txt.fadeIn('slow');	break;
+		case 'FADE OUT'		:	txt.fadeOut('fast');	break;
+		case 'FADE TOGGLE'		:	txt.fadeToggle(2000);	break;		
+		case 'FADE TO'		:	txt.fadeTo(2000, 0.1);	break;		
+
+		}
+		
+		
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+});//END $
+
+</script>
+
+<style>
+button { width:120px; text-align:left; }
+
+
+#txt {width: 400px; padding:10px; border:1px solid gray;
+ color: white; background-color: maroon;};
+</style>
+
+</head>
+<body>
+	<button>SHOW</button>
+	<button>HIDE</button>
+	<button>TOGGLE</button>
+	<br>
+	<button>SLIDE DOWN</button>
+	<button>SLIDE UP</button>
+	<button>SLIDE TOGGLE</button>	
+	<br>
+	<button>FADE IN</button>
+	<button>FADE OUT</button>
+	<button>FADE TOGGLE</button>
+	<button>FADE TO</button>
+	<hr>
+	<div id="txt">
+브라질이 오늘(25일, 한국시각) 2022 국제축구연맹(FIFA) 카타르 월드컵 조별리그 G조 1차전에서 세르비아를 2:0으로 격파한 가운데 공격수 히샤를리송의 '원더골'이 화제가 되고 있습니다.
+히샤를리송은 후반 17분 선취골에 이어 후반 28분 쐐기골까지 넣었습니다. 다시 비니시우스가 왼쪽에서 일자로 패스를 정확하게 찔러주자 왼발로 볼을 잡아 공중에 띄운 뒤 몸을 한 바퀴 돌려 넘어지며 강력한 오른발 터닝슛으로 세르비아 왼쪽 골문을 관통했습니다.
+FIFA는 공식 트위터에 히샤를리송의 득점 영상을 여러 차례 올리며 "이 장면을 보지 못한 팬들은 분명히 후회할 것이다. 히샤를리송이 엄청난 일을 벌였다"고 썼습니다.
+이날 경기 최우수선수 격인 '플레이어 오브 더 매치'의 영예도 히샤를리송이 차지했습니다.
+지난 10월 토트넘에서 정규리그 경기를 치르다가 종아리를 다쳐 대표팀 최종 승선마저 불투명했던 히샤를리송은 이날 월드컵 데뷔전에서 두 골을 몰아치며 강렬한 인상을 남겼습니다.
+20년 만의 월드컵 우승을 노리는 브라질은 29일 오전 1시에 스위스와 2차전을 치릅니다.
+	</div>
+</body>
+</html>
